@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/Head::head}">
+    <style>
+        .nav-item {
+          padding: 0 5px 0 5px;
+          border-radius: 5px;
+        }
+        .nav-item.active {
+          background: #006747;
+          color: #ffffff;
+          padding: 0 5px 0 5px;
+          border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<script th:replace="~{fragments/Scripts::script5}"></script>
+<script th:replace="~{fragments/Scripts::script6}"></script>
+<script th:replace="~{fragments/Scripts::script7}"></script>
+<script th:replace="~{fragments/Scripts::script1}"></script>
+<script th:replace="~{fragments/Scripts::script3}"></script>
+
+<div th:replace="~{fragments/Navbar::admin-navbar}"></div>
+
+<!--      Category page-->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Vehicle's List</h2>
+            <div class="mb-3 d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal"
+                        onclick="toggleForm()">
+                    Add New Vehicle
+                </button>
+            </div>
+
+            <div id="addVehicleSetupForm" style="display: none">
+                <h3>Add a new vehicle</h3>
+                <br>
+                <form action="/admin/add-vehicleSetup" th:object="${AddVehicleSetupForm}" method="post" class="">
+
+                    <!--                add a new vehicle code starts here -->
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="vehicleNumber" class="me-3 w-50">Vehicle Number</label>
+                            <input type="text" class="form-control" id="vehicleNumber" name="nwVehicleNumber"
+                                   placeholder="Enter Vehicle Number" required/>
+                        </div>
+
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="identificationNumber" class="me-3 w-50">Identification Number</label>
+                            <input type="text" class="form-control" id="identificationNumber" name="vehicleIdNumber"
+                                   placeholder="Enter Identification Number" required/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="modelYear" class="me-3 w-50">Model Year</label>
+                            <input type="number" class="form-control" id="modelYear" name="modelYear"
+                                   placeholder="Enter Model Year" required/>
+                        </div>
+
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="make" class="me-3 w-50">Make</label>
+                            <input type="text" class="form-control" id="make" name="make" placeholder="Enter Make"
+                                   required/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="model" class="me-3 w-50">Model</label>
+                            <input type="text" class="form-control" id="model" name="model" placeholder="Enter Model"
+                                   required/>
+                        </div>
+
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="date" class="me-3 w-50">Purchase Date</label>
+                            <input type="date" class="form-control" id="date" name="purchaseDate" required/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="startingMileage" class="me-3 w-50">Starting Mileage</label>
+                            <input type="number" class="form-control" id="startingMileage" name="startingMileage"
+                                   placeholder="Enter Starting Mileage" required/>
+                        </div>
+
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="vehicleWeight" class="me-3 w-50">Vehicle Weight</label>
+                            <select id="vehicleWeight" class="form-select" name="vehicleWeight">
+                                <option value="≤ 8,500" selected> ≤ 8,500 pounds</option>
+                                <option value="> 8500"> >8,500 pounds</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="vehicleType" class="me-3 w-50">Vehicle Type</label>
+                            <select id="vehicleType" class="form-select" name="vehicleType">
+                                <option value="gasoline" selected> Gasoline</option>
+                                <option value="diesel"> Diesel</option>
+                                <option value="hybrid"> Hybrid</option>
+                                <option value="e85"> E85</option>
+                                <option value="cng"> CNG</option>
+                                <option value="propane"> Propane</option>
+                                <option value="electric"> Electric</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="vehicleDesc" class="me-3 w-50">Vehicle Description</label>
+                            <select id="vehicleDesc" class="form-select" name="vehicleDescription">
+                                <option value="cars" selected> Cars and Stations Wagons</option>
+                                <option value="ldts"> LDTs, Vans, SUVs</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-group d-flex align-items-center">
+                            <label for="exempt" class="me-3 w-50">Exempt (Law Enforcement or >8,500 pounds)</label>
+                            <select id="exempt" class="form-select" name="exempt">
+                                <option value="yes"> Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!--                add a new vehicle code ends here -->
+
+                    <br/>
+
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Save/Update Category</button>
+                    </div>
+
+                    <br/><br/>
+                </form>
+            </div>
+
+            <table id="categoryTable" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Vehicle Number</th>
+                    <th>Identification Number</th>
+                    <th>Model Year</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Purchase Date</th>
+                    <th>Starting Mileage</th>
+                    <th>Vehicle Weight</th>
+                    <th>Vehicle Type</th>
+                    <th>Vehicle Description</th>
+                    <th>Exempt</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.nwVehicleNumber}"></td>  <!-- Correct field -->
+                    <td th:text="${vehicle.vehicleIdNumber}"></td>  <!-- Correct field -->
+                    <td th:text="${vehicle.modelYear}"></td>
+                    <td th:text="${vehicle.make}"></td>
+                    <td th:text="${vehicle.model}"></td>
+                    <td th:text="${vehicle.purchaseDate}"></td>
+                    <td th:text="${vehicle.startingMileage}"></td>
+                    <td th:text="${vehicle.vehicleWeight}"></td>
+                    <td th:text="${vehicle.vehicleType}"></td>
+                    <td th:text="${vehicle.vehicleDescription}"></td>
+                    <td th:text="${vehicle.exempt}"></td>
+                    <td>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-primary btn-sm edit-button">Edit</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-danger btn-sm delete-button"
+                                    th:attr="data-nwVehicleNumber=${vehicle.nwVehicleNumber}">
+                                Delete</button>
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <br/><br/>
+        </div>
+    </div>
+    <input th:value="${success}" disabled hidden="hidden" id="vehicleAdded"/>
+    <input th:value="${message}" disabled hidden="hidden" id="message"/>
+</div>
+
+<div th:replace="~{fragments/Footer::admin-footer}"></div>
+
+<script>
+    const editButtons = document.querySelectorAll('.edit-button');
+
+    $(document).ready(function () {
+      // Initialize DataTable for products table
+      $('#categoryTable').DataTable({
+        order: [], // Disable initial sorting
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var vehicleAdded = document.getElementById('vehicleAdded').value;
+
+      if (vehicleAdded != 'null') {
+        var message = document.getElementById('message').value;
+
+        if (vehicleAdded === 'true') {
+          swal({
+            title: 'Success!',
+            text: message,
+            icon: 'success',
+            button: 'close!',
+          });
+        } else {
+          swal({
+            title: 'Failure!',
+            text: message,
+            icon: 'failure',
+            button: 'close!',
+          });
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-button');
+
+        editButtons.forEach((button) => {
+		    button.addEventListener('click', function () {
+		        var form = document.getElementById('addVehicleSetupForm');
+
+		        // Get values from the table row
+		        const row = this.closest('tr');
+		        const vehicleNumber = row.querySelector('td:nth-child(1)').textContent.trim();
+		        const vehicleIdNumber = row.querySelector('td:nth-child(2)').textContent.trim();
+		        const modelYear = row.querySelector('td:nth-child(3)').textContent.trim();
+		        const make = row.querySelector('td:nth-child(4)').textContent.trim();
+		        const model = row.querySelector('td:nth-child(5)').textContent.trim();
+		        const purchaseDate = row.querySelector('td:nth-child(6)').textContent.trim();
+		        const startingMileage = row.querySelector('td:nth-child(7)').textContent.trim();
+		        const vehicleWeight = row.querySelector('td:nth-child(8)').textContent.trim();
+		        const vehicleType = row.querySelector('td:nth-child(9)').textContent.trim();
+		        const vehicleDescription = row.querySelector('td:nth-child(10)').textContent.trim();
+		        const exempt = row.querySelector('td:nth-child(11)').textContent.trim();
+
+		        // Set the values in the form
+		        document.getElementById('vehicleNumber').value = vehicleNumber;
+		        document.getElementById('identificationNumber').value = vehicleIdNumber;
+		        document.getElementById('modelYear').value = modelYear;
+		        document.getElementById('make').value = make;
+		        document.getElementById('model').value = model;
+		        document.getElementById('date').value = purchaseDate;
+		        document.getElementById('startingMileage').value = startingMileage;
+		        document.getElementById('vehicleWeight').value = vehicleWeight;
+		        document.getElementById('vehicleType').value = vehicleType;
+		        document.getElementById('vehicleDesc').value = vehicleDescription;
+		        document.getElementById('exempt').value = exempt;
+
+		        // Show the form
+		        form.style.display = 'block';
+		    });
+		});
+    });
+
+
+   document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.delete-button');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const vehicleNumber = this.getAttribute('data-nwVehicleNumber');
+            const row = this.closest('tr'); // Select the table row containing the button
+
+            if (!vehicleNumber) {
+                console.error("Vehicle number is missing.");
+                return;
+            }
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this vehicle!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    fetch('/admin/delete-vehicleSetup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({ nwVehicleNumber: vehicleNumber })
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data); // Log response for debugging
+                        swal("Vehicle deleted successfully!", {
+                            icon: "success",
+                        }).then(() => {
+                        window.location.reload(); // Refresh page to reload data
+                        }, 500);
+                    })
+                    .catch(error => {
+                        swal("Error deleting vehicle: " + error.message, {
+                            icon: "error",
+                        });
+                    });
+                }
+            });
+        });
+    });
+});
+
+
+    function toggleForm() {
+      var form = document.getElementById('addVehicleSetupForm');
+      if (form.style.display === 'none') {
+        form.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+      }
+    }
+
+
+    function showPreview(event) {
+      if (event.target.files.length > 0) {
+        const src = URL.createObjectURL(event.target.files[0]);
+        const preview = document.getElementById('file-ip-1-preview');
+        preview.src = src;
+        preview.style.display = '';
+      }
+    }
+</script>
+
+</body>
+
+</html>
