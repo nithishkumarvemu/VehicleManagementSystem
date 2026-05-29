@@ -1,0 +1,20 @@
+table {
+      width: 50%;
+      border-collapse: collapse;
+      margin-top: 10px;
+}
+table, th, td {
+      border: 1px solid black;
+      padding: 8px;
+}
+.hidden {
+      display: none;
+}
+select {
+    font-size: 18px;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

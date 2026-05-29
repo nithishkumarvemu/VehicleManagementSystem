@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="~{fragments/Head::head}">
+    <body>
+      <div th:replace="~{fragments/Navbar::navbar}"></div>
+      <script th:replace="~{fragments/Scripts::script1}"></script>
+      <script th:replace="~{fragments/Scripts::script3}"></script>
+      <script th:replace="~{fragments/Scripts::script2}"></script>
+
+      <div class="container mt-5">
+        <h1 class="mb-4">Welcome User....
+        <table>
+          <td th:text="${user.userName}"></td>
+        </table>
+        </h1>
+      </div>
+
+      <div th:replace="~{fragments/Footer::admin-footer}"></div>
+    </body>
+  </head>
+</html>
