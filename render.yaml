@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vehicle-management-system
+    runtime: java
+    buildCommand: chmod +x mvnw && ./mvnw clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -jar target/vehicleManagementSystem-0.0.1-SNAPSHOT.jar
